@@ -90,8 +90,8 @@
     - id: agent-default-model
       name: '@deepseek-ai/dsh-agent-default-model'
       config:
-        provider: deepseek-official
-        model: deepseek-flash
+        provider: !!js "process.env.DEEPSEEK_API_KEY ? 'deepseek-official' : 'cursor-cli'"
+        model: !!js "process.env.DEEPSEEK_API_KEY ? 'deepseek-flash' : 'auto-smart'"
 
     - id: jobs
       name: '@deepseek-ai/dsh-jobs-local'
@@ -138,6 +138,28 @@
     # document.
     - id: llm-pi-ai
       name: '@deepseek-ai/dsh-llm-pi-ai'
+
+    - id: llm-cursor-cli
+      name: '@deepseek-ai/dsh-llm-cursor-cli'
+      config:
+        provider: cursor-cli
+        displayName: Cursor CLI (ACP)
+        acpMode: ask
+        enableToolShim: true
+        enableAcpSubagent: true
+        acpProviderName: cursor-acp
+        acpPermission: allow
+
+    - id: llm-workbuddy-acp
+      name: '@deepseek-ai/dsh-llm-workbuddy-acp'
+      config:
+        provider: workbuddy-acp
+        displayName: WorkBuddy (ACP)
+        autoAuthMethod: iOA
+        enableToolShim: true
+        enableAcpSubagent: true
+        acpProviderName: workbuddy-acp
+        acpPermission: allow
 
     - id: session-persistence-jsonl
       name: '@deepseek-ai/dsh-session-persistence-jsonl'
